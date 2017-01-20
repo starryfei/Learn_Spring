@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	<!-- 配置beans class :bean的全类名，通过反射的方式在IOC容器中创建Bean，所以bean中必须要有无参数的构造器 id:标识容器中的bean，ID唯一 -->
+	<bean id="helloSpring" class="com.test.HelloSpring">
+		<!-- property 的name属性和beans的set方法相对应 -->
+		<property name="name" value="spring"></property>
+	</bean>
+	<!-- 使用构造器注入属性值，可以指定参数的位置和参数的类型，以区分重载的构造器 index：位置 type：类型 -->
+	<bean id="user" class="com.test.User">
+		<constructor-arg value="aa" index="0"></constructor-arg>
+		<constructor-arg value="10" index="1"></constructor-arg>
+		<constructor-arg value="123456" index="2">
+		</constructor-arg>
+	</bean>
+	<bean id="user2" class="com.test.User">
+		<constructor-arg value="cc"></constructor-arg>
+		<constructor-arg value="10" type="int"></constructor-arg>
+		<!--若字面值包含特殊字符，可以使用<![CDATA[]]>把字面值包裹起来 -->
+		<constructor-arg index="2">
+			<value><![CDATA[<3333>]]></value>
+		</constructor-arg>
+	</bean>
+	<bean id="manager" class="com.test.Manager">
+		<property name="name" value="gg"></property>
+		<!-- 可以使用ref属性来建立bean之间的引用关系 -->
+		<property name="user" ref="user"></property>
+		<!-- 为级联属性赋值,注意：属性需要先初始化后才能为级联属性赋值，否则会有异常，和struts2不同 -->
+		<property name="user.age" value="33" /> <!--这里的user是Manager的属性值，而不是ref引用的id-->
+		<!-- 内部bean,不能被外部引用，只能内部使用 -->
+		<!-- <property name="user"> <bean class="com.test.User"> <constructor-arg 
+			value="ccd" index="0"></constructor-arg> <constructor-arg value="30" index="1"></constructor-arg> 
+			<constructor-arg value="13456" index="2"> </constructor-arg> </bean> </property> 
+			<property name="user.age" value="33"/> -->
+	</bean>
+	<!-- 配置集合List -->
+	<bean id="manager1" class="com.test.collectic.Manager">
+		<property name="name" value="fei"></property>
+		<property name="users">
+			<!-- 使用list节点为List类型的属性赋值 -->
+			<list>
+				<ref bean="user" />
+				<ref bean="user2" />
+			</list>
+		</property>
+	</bean>
+	<!-- 配置Map -->
+	<bean id="newManager" class="com.test.collectic.NewManager">
+		<property name="name" value="ya"></property>
+		<property name="users">
+			<map>
+				<entry key="小米" value-ref="user"></entry>
+				<entry key="小哈" value-ref="user2"></entry>
+			</map>
+		</property>
+	</bean>
+	<!--配置Properties属性值，为了与hibernate整合需要用到 -->
+	<bean id="connect" class="com.test.collectic.Connect">
+		<property name="properties">
+			<!-- 使用props和prop子节点来为 Properties属性赋值 -->
+			<props>
+				<prop key="user">root</prop>
+				<prop key="password">root</prop>
+				<prop key="jdbcUrl">jdbc:mysql:///user</prop>
+				<prop key="driverClass">com.mysql.jdbc.Driver</prop>
+			</props>
+		</property>
+	</bean>
+	<!--配置单例的集合bean，以供多个bean引用，需要用到util命名空间 -->
+	<util:list id="users">
+		<ref bean="user" />
+		<ref bean="user2" />
+	</util:list>
+	<!-- 测试引用 集合bean -->
+	<bean id="manager2" class="com.test.collectic.Manager">
+		<property name="name" value="fff"></property>
+		<property name="users" ref="users"></property>
+	</bean>
+	<!-- 通过p命名空间为bean的属性赋值，需要先导入p的命名空间，相比于传统的更简单 -->
+	<bean id="manager3" class="com.test.collectic.Manager" p:name="qin"
+		p:users-ref="users">
+	</bean>
+</beans>
