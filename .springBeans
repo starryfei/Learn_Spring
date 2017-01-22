@@ -12,6 +12,7 @@
 		<config>src/relation.xml</config>
 		<config>src/scope.xml</config>
 		<config>src/properties.xml</config>
+		<config>src/SpEl.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

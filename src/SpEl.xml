@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 使用SpEL表达式#{} -->
+	<bean id="address" class="com.test.SpEL.Address">
+		<property name="city" value="#{'北京'}"></property>
+		<property name="street" value="#{'长安街'}"></property>
+	</bean>
+	<!--使用SpEL引用类的静态属性 -->
+	<bean id="car" class="com.test.SpEL.Car">
+		<property name="name" value="#{'现代'}"></property>
+		<property name="price" value="#{10000}"></property>
+		<!-- 通过T()调用一个类的静态方法，它将返回一个ClassObject,然后调用相对应的方法 或属性 -->
+		<property name="tyrePerimeter" value="#{T(java.lang.Math).PI*60}"></property>
+	</bean>
+	<!--使用SpEL引用其他的bean -->
+	<bean id="person" class="com.test.SpEL.Person">
+		<property name="name" value="#{'张三'}"></property>
+		<property name="car" value="#{car}"></property>
+		<property name="city" value="#{address.city}"></property>
+		<!-- SpEL使用运算符 -->
+		<property name="info" value="#{car.price >= 20000 ? '金领':'白领'}"></property>
+	</bean>
+</beans>
