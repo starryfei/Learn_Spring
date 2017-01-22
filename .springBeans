@@ -13,6 +13,7 @@
 		<config>src/scope.xml</config>
 		<config>src/properties.xml</config>
 		<config>src/SpEl.xml</config>
+		<config>src/cycle.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
