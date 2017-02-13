@@ -18,13 +18,14 @@ public class Main {
 
 		RespositoryIml res = (RespositoryIml) ctx.getBean("respository");
 		System.out.println(res);
-	   
-		UserController userController = (UserController) ctx.getBean("userController");
+
+		UserController userController = (UserController) ctx
+				.getBean("userController");
 		System.out.println(userController);
-		
+
 		UserService userService = (UserService) ctx.getBean("userService");
 		System.out.println(userService);
-		
+
 	}
 
 }

@@ -4,8 +4,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- 指定springIOC容器扫描的包  可以通过resource-pattern扫描指定的资源-->
-	<context:component-scan base-package="com.test.annotation" >
-
+	<!-- 指定springIOC容器扫描的包 可以通过resource-pattern扫描指定的资源 -->
+	<!-- <context:exclude-filter type="annotation" expression=" org.springframework.stereotype.Repository"/> 
+		不包括哪些文件 <context:include-filter type="annotation" expression=""/> 包括哪些，需要配合 
+		use-default-filters="true"才能使用 -->
+	<context:component-scan base-package="com.test.annotation " >
+		<!-- <context:include-filter type="annotation"
+			expression="" /> -->
 	</context:component-scan>
 </beans>
