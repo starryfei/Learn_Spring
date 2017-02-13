@@ -14,6 +14,7 @@
 		<config>src/properties.xml</config>
 		<config>src/SpEl.xml</config>
 		<config>src/cycle.xml</config>
+		<config>src/annotation.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

@@ -1,10 +1,1 @@
-/applicationContext.xml
-/autowire.xml
 /com/
-/db.properties
-/properties.xml
-/relation.xml
-/scope.xml
-/SpEL.xml
-/SpEl.xml
-/cycle.xml

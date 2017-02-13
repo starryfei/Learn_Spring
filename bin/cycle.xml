@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="user" class="com.test.cycle.User" init-method="init"
+		destroy-method="destroy">
+		<property name="name" value="starryfei"></property>
+	</bean>
+	
+	<!-- 实现BeanPostProcessor接口，并具体提供以下两个方法： Object postProcessBeforeInitialization(Object 
+		bean, String beanName)：init-method之前被调用 Object postProcessAfterInitialization(Object 
+		bean, String beanName):init-method之后被调用 bean：bean实例本身 beanName:IOC 容器配置的bean的名字 
+		返回值：实际上返回给用户的那个Bean，注意：可以在两个方法中修改返回值bean，也可以返回一个新的bean -->
+		
+	<!--配置Bean的后置处理器 不需要指定id，IOC容器可以自动识别 -->
+	<bean class="com.test.cycle.MyBeanPostProcessor"></bean>
+</beans>
